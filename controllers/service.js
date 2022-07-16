@@ -1,9 +1,8 @@
 const { response, request } = require('express');
-const bcryptjs = require('bcryptjs');
-
 const Service = require('../models/service');
 
 const serviceGet =  async (req = request , res = response) => {
+
     const services = await Service.find()
     res.json({
         data: services

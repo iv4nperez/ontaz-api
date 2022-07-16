@@ -1,6 +1,7 @@
 const express = require('express');
 const cors    = require('cors');
 const { dbConnection } = require('../database/config');
+// const Redis = require('../redis/redis')
 
 class Server {
 
@@ -8,6 +9,7 @@ class Server {
         this.app  = express();
         this.port = process.env.PORT;
         this.servicePath = '/api/service';
+        this.categoryPath = '/api/category';
         this.authPath     = '/api/auth';
         //Conectar a base de datos
         this.connectionDB();
@@ -23,6 +25,10 @@ class Server {
         await dbConnection();
     }
 
+    // async configRedis(){
+    //     await Redis()
+    // }
+
     middlewares(){
         //CORS
         this.app.use( cors() )
@@ -35,9 +41,12 @@ class Server {
     routes(){
         this.app.use( this.authPath    , require('../routes/auth') );
         this.app.use( this.servicePath, require('../routes/service') );
+        this.app.use( this.categoryPath, require('../routes/category') );
     }
 
     listen(){
+       
+
         this.app.listen( this.port , () => {
             console.log('Servidor corriendo en puerto', this.port );
         });
