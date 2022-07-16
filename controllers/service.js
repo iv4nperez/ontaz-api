@@ -1,5 +1,5 @@
 const { response, request } = require('express');
-const Service = require('../models/service');
+const { Service } = require('../models');
 
 const serviceGet =  async (req = request , res = response) => {
 
@@ -10,9 +10,21 @@ const serviceGet =  async (req = request , res = response) => {
 }
 
 
+const serviceGetByCategory =  async (req = request , res = response) => {
+    const { categoryId } = req.params;
+
+    const services = await Service.find({ category: categoryId })
+    res.json({
+        data: services
+    });
+}
+
+
+
 const servicePost =  async (req = request , res = response) => {
 
     const {
+        categoryId,
         title,
         description,
         starts,
@@ -23,7 +35,8 @@ const servicePost =  async (req = request , res = response) => {
     } = req.body;
 
 
-    const service = new Service({ 
+    const service = new Service({
+        category: categoryId,
         title,
         description,
         starts,
@@ -45,5 +58,6 @@ const servicePost =  async (req = request , res = response) => {
 
 module.exports = {
     serviceGet,
-    servicePost
+    servicePost,
+    serviceGetByCategory
 }

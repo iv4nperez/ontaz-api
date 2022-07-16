@@ -15,13 +15,14 @@ const { esRoleValido, existeEmail, existeUsuarioPorId } = require('../helpers/db
 // } = require('../middlewares')
 const {
 
-    serviceGet, servicePost,
+    serviceGet, serviceGetByCategory, servicePost,
 
 } = require('../controllers/service');
 
 const router = Router();
 
     router.get('/', serviceGet );
+    router.get('/:categoryId', serviceGetByCategory)
     router.post('/', servicePost)
 
 
