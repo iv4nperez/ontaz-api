@@ -4,7 +4,11 @@ const { Schema, model } = require('mongoose');
 const CategorySchema =  Schema({
     title: String,
     urlImg: String,
-    color: String
+    color: String,
+    status: {
+        type: Boolean,
+        default: true
+    }
 });
 
 CategorySchema.methods.toJSON = function(){
