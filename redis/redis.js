@@ -6,6 +6,7 @@ const redis = require('redis');
             auth_pass: process.env.REDIS_PASSWORD, tls:{ servername: process.env.REDIS_HOSTNAME }
         }
     );
+
     //
     // const redisInstance = redis.createClient({
     //     host: '127.0.0.1',
