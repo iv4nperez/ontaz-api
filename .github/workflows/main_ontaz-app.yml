@@ -9,6 +9,11 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  MONGODB_CN: ${{ secrets.MONGODB_CN }}
+  REDIS_HOSTNAME: ${{ secrets.REDIS_HOSTNAME }}
+  REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+  
 jobs:
   build:
     runs-on: ubuntu-latest
