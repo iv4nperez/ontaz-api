@@ -13,7 +13,7 @@ class Server {
         this.authPath     = '/api/auth';
         //Conectar a base de datos
         this.connectionDB();
-        this.configRedis();
+        // this.configRedis();
         //Middleware    
         this.middlewares();
         
