@@ -1,14 +1,25 @@
 const { response, request } = require('express');
-const bcryptjs = require('bcryptjs');
 const Category = require('../models/category');
+const { redisInstance } = require('../redis/redis')
 
 const categoryGet =  async (req = request , res = response) => {
 
-    const category = await Category.find({ status: true })
+    try {
+        const categoriesCache = await redisInstance.get('categories');
+        if( categoriesCache ){
+            return res.json(JSON.parse(categoriesCache));
+        }
 
-    res.json({
-        data: category
-    });
+        const category = await Category.find({ status: true })
+
+        await redisInstance.set('categories', JSON.stringify({ data:category} ));
+        res.json({
+            data: category
+        });
+
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 

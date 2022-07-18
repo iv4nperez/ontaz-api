@@ -1,7 +1,7 @@
 const express = require('express');
 const cors    = require('cors');
 const { dbConnection } = require('../database/config');
-// const Redis = require('../redis/redis')
+const { startRedis }  = require('../redis/redis')
 
 class Server {
 
@@ -13,7 +13,7 @@ class Server {
         this.authPath     = '/api/auth';
         //Conectar a base de datos
         this.connectionDB();
-        
+        this.configRedis();
         //Middleware    
         this.middlewares();
         
@@ -25,9 +25,9 @@ class Server {
         await dbConnection();
     }
 
-    // async configRedis(){
-    //     await Redis()
-    // }
+    async configRedis(){
+        await startRedis()
+    }
 
     middlewares(){
         //CORS
