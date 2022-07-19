@@ -1,5 +1,6 @@
 const { response, request } = require('express');
 const { Service } = require('../models');
+const { redisInstance } = require('../redis/redis')
 
 const serviceGet =  async (req = request , res = response) => {
 
@@ -13,7 +14,15 @@ const serviceGet =  async (req = request , res = response) => {
 const serviceGetByCategory =  async (req = request , res = response) => {
     const { categoryId } = req.params;
 
+    const serviceByCategoryCache = await redisInstance.get(`service/${ categoryId }`);
+    if( serviceByCategoryCache ){
+        return res.json(JSON.parse(serviceByCategoryCache));
+    }
+
     const services = await Service.find({ category: categoryId })
+
+    await redisInstance.set(`service/${ categoryId }`, JSON.stringify({ data: services }));
+
     res.json({
         data: services
     });
