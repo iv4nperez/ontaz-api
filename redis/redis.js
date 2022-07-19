@@ -1,17 +1,16 @@
 const redis = require('redis');
 
-    const redisInstance = redis.createClient(
-        6380, process.env.REDIS_HOSTNAME,
-        {
-            auth_pass: process.env.REDIS_PASSWORD, tls:{ servername: process.env.REDIS_HOSTNAME }
-        }
-    );
-
-    //
+    // //
     // const redisInstance = redis.createClient({
     //     host: '127.0.0.1',
     //     port: 6379
     // });
+
+    const redisInstance = redis.createClient({
+        url: "rediss://" + process.env.REDIS_HOSTNAME + ":6380",
+        password: process.env.REDIS_PASSWORD,
+    });
+
     const startRedis = async () => {
         try {
             await redisInstance.connect()
