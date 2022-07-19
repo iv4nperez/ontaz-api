@@ -1,0 +1,4 @@
+
+link documentation for start Server
+https://docs.microsoft.com/en-us/azure/azure-cache-for-redis/cache-how-to-redis-cli-tool
+
