@@ -6,14 +6,14 @@ const productGetByService =  async (req = request , res = response) => {
 
     try {
         const { serviceId } = req.params;
-        const productsCache = await redisInstance.get(`products/${serviceId}`);
-        if( productsCache ){
-            return res.json(JSON.parse(productsCache));
-        }
+        // const productsCache = await redisInstance.get(`products/${serviceId}`);
+        // if( productsCache ){
+        //     return res.json(JSON.parse(productsCache));
+        // }
 
         const products = await Product.find({ status: true, service: serviceId })
 
-        await redisInstance.set(`products/${serviceId}`, JSON.stringify({ data: products} ));
+        // await redisInstance.set(`products/${serviceId}`, JSON.stringify({ data: products} ));
         res.json({
             data: products
         });
