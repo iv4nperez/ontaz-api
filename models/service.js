@@ -10,6 +10,7 @@ const ServiceSchema =  Schema({
     },
     title: String,
     description: String,
+    schedule: String,
     starts: Number,
     urlImg: String,
     phone: String,

@@ -3,7 +3,6 @@ const { Service } = require('../models');
 const { redisInstance } = require('../redis/redis')
 
 const serviceGet =  async (req = request , res = response) => {
-
     const services = await Service.find()
     res.json({
         data: services
