@@ -15,6 +15,8 @@ const ServiceSchema =  Schema({
     urlImg: String,
     phone: String,
     whatsapp: String,
+    lat: Number,
+    lng: Number,
     location: String,
     status: {
         type: Boolean,
