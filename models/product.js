@@ -19,6 +19,7 @@ const ProductSchema =  Schema({
         type: Number,
         required: true
     },
+    schedule: String,
     description: String,
     status: {
         type: Boolean,
