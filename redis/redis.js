@@ -13,6 +13,8 @@ const redis = require('redis');
 
     const startRedis = async () => {
         try {
+
+            // redisInstance.flushDb( (err, success) => console.log(success))
             await redisInstance.connect()
             console.log('redis running')
         } catch (error) {
