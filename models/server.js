@@ -8,10 +8,11 @@ class Server {
     constructor(){
         this.app  = express();
         this.port = process.env.PORT;
-        this.servicePath = '/api/service';
+        this.servicePath =  '/api/service';
         this.categoryPath = '/api/category';
-        this.productPath = '/api/product';
+        this.productPath =  '/api/product';
         this.authPath     = '/api/auth';
+        this.userPath     = '/api/user';
         //Conectar a base de datos
         this.connectionDB();
         this.configRedis();
@@ -43,7 +44,8 @@ class Server {
         this.app.use( this.authPath    , require('../routes/auth') );
         this.app.use( this.servicePath,  require('../routes/service') );
         this.app.use( this.categoryPath, require('../routes/category') );
-        this.app.use( this.productPath,  require('../routes/product') )
+        this.app.use( this.productPath,  require('../routes/product') );
+        this.app.use( this.userPath,     require('../routes/user') );
     }
 
     listen(){

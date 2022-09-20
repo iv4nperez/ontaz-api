@@ -1,26 +1,26 @@
 const { response } = require("express");
 const bcryptjs = require('bcryptjs');
 
-const Usuario = require('../models/service');
+const Usuario = require('../models/users');
 
 const { generarJWT } = require("../helpers/generar-jwt");
 const { googleVerify } = require("../helpers/google-verify");
 
 
 const login = async (req, res = response  ) => {
-    const { correo, password} = req.body;
+    const { email, password} = req.body;
 
     try {
-        
         //verificar si el email existe
-        const usuario = await Usuario.findOne({correo});
+        const usuario = await Usuario.findOne({email});
         if ( !usuario ){
             return res.status(400).json({
                 msg:'Usuario / Password no son correctos - correo'
             })
         }
+
         //verificar si el usuario esta activo
-        if ( !usuario.estado ){
+        if ( !usuario.status ){
             return res.status(400).json({
                 msg:'Usuario / Password no son correctos - estado:false'
             })
@@ -46,7 +46,6 @@ const login = async (req, res = response  ) => {
         });
     }
 }
-
 
 const googleSignin = async ( req, res = response ) => {
     const { id_token } = req.body;
