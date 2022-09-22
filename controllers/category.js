@@ -5,14 +5,14 @@ const { redisInstance } = require('../redis/redis')
 const categoryGet =  async (req = request , res = response) => {
 
     try {
-        const categoriesCache = await redisInstance.get('categories');
-        if( categoriesCache ){
-            return res.json(JSON.parse(categoriesCache));
-        }
+        // const categoriesCache = await redisInstance.get('categories');
+        // if( categoriesCache ){
+        //     return res.json(JSON.parse(categoriesCache));
+        // }
 
         const category = await Category.find({ status: true })
 
-        await redisInstance.set('categories', JSON.stringify({ data:category} ));
+        // await redisInstance.set('categories', JSON.stringify({ data:category} ));
         res.json({
             data: category
         });
