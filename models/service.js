@@ -18,6 +18,11 @@ const ServiceSchema =  Schema({
     lat: Number,
     lng: Number,
     location: String,
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
+        required: true
+    },
     status: {
         type: Boolean,
         default: true

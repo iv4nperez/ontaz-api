@@ -15,7 +15,7 @@ const { esRoleValido, existeEmail, existeUsuarioPorId } = require('../helpers/db
 // } = require('../middlewares')
 const {
 
-    serviceGet, serviceGetByCategory, servicePost,
+    serviceGet, serviceGetByCategory, servicePost, serviceGetByUID
 
 } = require('../controllers/service');
 
@@ -23,7 +23,9 @@ const router = Router();
 
     router.get('/', serviceGet );
     router.get('/:categoryId', serviceGetByCategory)
-    router.post('/', servicePost)
+    router.get('/serviceByUID/:userId', serviceGetByUID )
+    router.post('/', servicePost),
+    
 
 
 module.exports = router;

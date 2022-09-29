@@ -27,6 +27,15 @@ const serviceGetByCategory =  async (req = request , res = response) => {
     });
 }
 
+const serviceGetByUID = async (req = response, res = response) => {
+    const { userId } = req.params;
+    const services = await Service.find({ userId: userId })
+
+    res.json({
+        data: services
+    });
+}
+
 
 
 const servicePost =  async (req = request , res = response) => {
@@ -67,5 +76,6 @@ const servicePost =  async (req = request , res = response) => {
 module.exports = {
     serviceGet,
     servicePost,
-    serviceGetByCategory
+    serviceGetByCategory,
+    serviceGetByUID
 }
