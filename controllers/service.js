@@ -73,9 +73,22 @@ const servicePost =  async (req = request , res = response) => {
 }
 
 
+const serviceDelByIdService = async (req = response, res = response) => {
+    const { id } = req.params;
+    const servicesDelete = await Service.findByIdAndUpdate(id, { status: false }, { new:true })
+
+    res.json({
+        data: servicesDelete,
+        msg: 'Registro eliminado correctamente'
+    });
+}
+
+
+
 module.exports = {
     serviceGet,
     servicePost,
     serviceGetByCategory,
-    serviceGetByUID
+    serviceGetByUID,
+    serviceDelByIdService
 }
