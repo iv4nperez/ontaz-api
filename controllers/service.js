@@ -18,7 +18,7 @@ const serviceGetByCategory =  async (req = request , res = response) => {
     //     return res.json(JSON.parse(serviceByCategoryCache));
     // }
 
-    const services = await Service.find({ category: categoryId })
+    const services = await Service.find({ category: categoryId, status: true })
 
     // await redisInstance.set(`service/${ categoryId }`, JSON.stringify({ data: services }));
 
@@ -74,17 +74,22 @@ const servicePost =  async (req = request , res = response) => {
 
 
 const serviceDelByIdService = async (req = response, res = response) => {
-    const { id } = req.params;
-    const servicesDelete = await Service.findByIdAndUpdate(id, { status: false }, { new:true })
+    try {
+        const { id } = req.params;
+        const servicesDelete = await Service.findByIdAndUpdate(id, { status: false }, { new:true })
 
-    res.json({
-        data: servicesDelete,
-        msg: 'Registro eliminado correctamente'
-    });
+        res.json({
+            data: servicesDelete,
+            msg: 'Registro eliminado correctamente'
+        });
+    } catch (error) {
+        res.json({
+            data: {},
+            msg: 'Ha ocurrido un error - code[ND01]'
+        });
+    }
 }
-
-
-
+// code[ND01] = No se pudo eliminar
 module.exports = {
     serviceGet,
     servicePost,
