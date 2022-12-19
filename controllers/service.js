@@ -29,7 +29,7 @@ const serviceGetByCategory =  async (req = request , res = response) => {
 
 const serviceGetByUID = async (req = response, res = response) => {
     const { userId } = req.params;
-    const services = await Service.find({ userId: userId })
+    const services = await Service.find({ userId: userId, status: true })
 
     res.json({
         data: services
