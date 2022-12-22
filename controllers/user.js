@@ -31,6 +31,17 @@ const usuariosPost = async(req, res = response) => {
     const { email, password, firstName, lastName, role } = req.body;
     const usuario = new Usuario({  email, password, firstName, lastName, role  });
 
+    const existUser = await Usuario.findOne({ email })
+
+    if(existUser){
+
+        res.json({
+            user: null,
+            status: "error",
+            msg:"El correo " + email + " ya se encuentra registrado."
+        });
+    }
+
     // Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();
     usuario.password = bcryptjs.hashSync( password, salt );
@@ -40,7 +51,8 @@ const usuariosPost = async(req, res = response) => {
 
     res.json({
         user: usuario,
-        status: "success"
+        status: "success",
+        msg: ''
     });
 }
 
