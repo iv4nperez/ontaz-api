@@ -29,12 +29,9 @@ const usuariosGet = async(req = request, res = response) => {
 const usuariosPost = async(req, res = response) => {
 
     const { email, password, firstName, lastName, role } = req.body;
-    const usuario = new Usuario({  email, password, firstName, lastName, role  });
-
     const existUser = await Usuario.findOne({ email })
 
     if(existUser){
-
         res.json({
             user: null,
             status: "error",
@@ -42,6 +39,7 @@ const usuariosPost = async(req, res = response) => {
         });
     }
 
+    const usuario = new Usuario({  email, password, firstName, lastName, role  });
     // Encriptar la contraseña
     const salt = bcryptjs.genSaltSync();
     usuario.password = bcryptjs.hashSync( password, salt );
