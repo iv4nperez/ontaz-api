@@ -29,29 +29,32 @@ const usuariosGet = async(req = request, res = response) => {
 const usuariosPost = async(req, res = response) => {
 
     const { email, password, firstName, lastName, role } = req.body;
-    const existUser = await Usuario.findOne({ email })
+    const existUser = await Usuario.countDocuments({ email, status: true })
 
-    if(existUser){
+    if(existUser > 0){
         res.json({
             user: null,
             status: "error",
             msg:"El correo " + email + " ya se encuentra registrado."
         });
+    }else{
+        const usuario = new Usuario({  email, password, firstName, lastName, role  });
+        // Encriptar la contraseña
+        const salt = bcryptjs.genSaltSync();
+        usuario.password = bcryptjs.hashSync( password, salt );
+
+        // Guardar en BD
+        await usuario.save();
+
+        res.json({
+            user: usuario,
+            status: "success",
+            msg: ''
+        });
+
     }
 
-    const usuario = new Usuario({  email, password, firstName, lastName, role  });
-    // Encriptar la contraseña
-    const salt = bcryptjs.genSaltSync();
-    usuario.password = bcryptjs.hashSync( password, salt );
-
-    // Guardar en BD
-    await usuario.save();
-
-    res.json({
-        user: usuario,
-        status: "success",
-        msg: ''
-    });
+    
 }
 
 // const usuariosPut = async(req, res = response) => {
