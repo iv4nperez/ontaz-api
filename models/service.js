@@ -11,13 +11,19 @@ const ServiceSchema =  Schema({
     title: String,
     description: String,
     schedule: String,
-    starts: Number,
+    starts: {
+        type: Number,
+        default: 0
+    },
     urlImg: String,
     phone: String,
     whatsapp: String,
     lat: Number,
     lng: Number,
-    location: String,
+    hasLocation: {
+        type: Boolean,
+        default: false
+    },
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'Users',

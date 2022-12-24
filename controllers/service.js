@@ -1,6 +1,6 @@
 const { response, request } = require('express');
 const { Service } = require('../models');
-const { redisInstance } = require('../redis/redis')
+// const { redisInstance } = require('../redis/redis')
 
 const serviceGet =  async (req = request , res = response) => {
     const services = await Service.find()
@@ -44,11 +44,14 @@ const servicePost =  async (req = request , res = response) => {
         categoryId,
         title,
         description,
-        starts,
+        schedule,
         urlImg,
         phone,
         whatsapp,
-        location
+        lat,
+        lng,
+        hasLocation,
+        userId
     } = req.body;
 
 
@@ -56,11 +59,14 @@ const servicePost =  async (req = request , res = response) => {
         category: categoryId,
         title,
         description,
-        starts,
+        schedule,
         urlImg,
         phone,
         whatsapp,
-        location
+        lat,
+        lng,
+        hasLocation,
+        userId
     });
 
     await service.save()
@@ -68,7 +74,7 @@ const servicePost =  async (req = request , res = response) => {
     res.json({
         data: service,
         status: "success",
-        message: "Registro guardado correctamente"
+        msg: "Registro guardado correctamente"
     });
 }
 
