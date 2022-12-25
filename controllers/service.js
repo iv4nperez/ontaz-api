@@ -36,6 +36,16 @@ const serviceGetByUID = async (req = response, res = response) => {
     });
 }
 
+const serviceGetByIDService = async (req = response, res = response) => {
+    const { id } = req.params;
+    const services = await Service.findOne({ _id: id, status: true })
+
+    res.json({
+        data: services
+    });
+}
+
+
 
 
 const servicePost =  async (req = request , res = response) => {
@@ -54,6 +64,8 @@ const servicePost =  async (req = request , res = response) => {
         userId
     } = req.body;
 
+    // const sampleFile = req.files.file
+    // console.log(sampleFile)
 
     const service = new Service({
         category: categoryId,
@@ -101,5 +113,6 @@ module.exports = {
     servicePost,
     serviceGetByCategory,
     serviceGetByUID,
-    serviceDelByIdService
+    serviceDelByIdService,
+    serviceGetByIDService
 }

@@ -15,7 +15,7 @@ const { esRoleValido, existeEmail, existeUsuarioPorId } = require('../helpers/db
 // } = require('../middlewares')
 const {
 
-    serviceGet, serviceGetByCategory, servicePost, serviceGetByUID, serviceDelByIdService
+    serviceGet, serviceGetByCategory, servicePost, serviceGetByUID, serviceDelByIdService, serviceGetByIDService
 
 } = require('../controllers/service');
 
@@ -23,6 +23,7 @@ const router = Router();
 
     router.get('/', serviceGet );
     router.get('/:categoryId', serviceGetByCategory)
+    router.get('/serviceByID/:id', serviceGetByIDService) // obtenemos un servicio por ID
     router.get('/serviceByUID/:userId', serviceGetByUID )
     router.post('/', servicePost),
     router.delete('/:id', serviceDelByIdService)

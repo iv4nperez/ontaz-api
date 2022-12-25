@@ -1,6 +1,7 @@
 const express = require('express');
 const cors    = require('cors');
 const { dbConnection } = require('../database/config');
+const fileUpload = require('express-fileupload')
 // const { startRedis }  = require('../redis/redis')
 
 class Server {
@@ -38,6 +39,12 @@ class Server {
         this.app.use( express.json() );
         //directorio publico
         this.app.use( express.static('public') );
+
+        //fileupload - carga de archivos
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/'
+        }));
     }
 
     routes(){
