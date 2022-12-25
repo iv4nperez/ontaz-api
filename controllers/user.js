@@ -1,10 +1,10 @@
 const { response, request } = require('express');
 const bcryptjs = require('bcryptjs');
-
+const sgMail = require('@sendgrid/mail')
 
 const Usuario = require('../models/users');
 
-
+sgMail.setApiKey('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')
 
 const usuariosGet = async(req = request, res = response) => {
 
@@ -45,6 +45,16 @@ const usuariosPost = async(req, res = response) => {
 
         // Guardar en BD
         await usuario.save();
+
+        const msg = {
+            to: email, // Change to your recipient
+            from: 'ontazapp@outlook.com', // Change to your verified sender
+            subject: 'Bienvenido a Ontaz',
+            text: 'Te haz registrado correctamente',
+            html: '<strong>Estamos feliz por la nueva experiencia que viviras con Ontaz.</strong>',
+        }
+
+        await sgMail.send(msg).then(() => {console.log('Email sent')}).catch((error) => {console.error(error)})
 
         res.json({
             user: usuario,
