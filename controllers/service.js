@@ -51,6 +51,7 @@ const serviceGetByIDService = async (req = response, res = response) => {
 const servicePost =  async (req = request , res = response) => {
 
     const {
+        id,
         categoryId,
         title,
         description,
@@ -67,27 +68,52 @@ const servicePost =  async (req = request , res = response) => {
     // const sampleFile = req.files.file
     // console.log(sampleFile)
 
-    const service = new Service({
-        category: categoryId,
-        title,
-        description,
-        schedule,
-        urlImg,
-        phone,
-        whatsapp,
-        lat,
-        lng,
-        hasLocation,
-        userId
-    });
+    if(id){
+        const service = await Service.findByIdAndUpdate(id ,{
+            category: categoryId,
+            title,
+            description,
+            schedule,
+            urlImg,
+            phone,
+            whatsapp,
+            lat,
+            lng,
+            hasLocation,
+            userId
+        }, {new: true});
 
-    await service.save()
+        res.json({
+            data: service,
+            status: "success",
+            msg: "Registro actualizado correctamente"
+        });
 
-    res.json({
-        data: service,
-        status: "success",
-        msg: "Registro guardado correctamente"
-    });
+    }else{
+        const service = new Service({
+            category: categoryId,
+            title,
+            description,
+            schedule,
+            urlImg,
+            phone,
+            whatsapp,
+            lat,
+            lng,
+            hasLocation,
+            userId
+        });
+    
+        await service.save()
+    
+        res.json({
+            data: service,
+            status: "success",
+            msg: "Registro guardado correctamente"
+        });
+    }
+
+    
 }
 
 
