@@ -4,7 +4,7 @@ const sgMail = require('@sendgrid/mail')
 
 const Usuario = require('../models/users');
 
-sgMail.setApiKey('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')
+sgMail.setApiKey(process.env.API_KEY_SEND_GRID)
 
 const usuariosGet = async(req = request, res = response) => {
 
