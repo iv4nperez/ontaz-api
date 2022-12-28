@@ -48,6 +48,7 @@ const productPost =  async (req = request , res = response) => {
     res.json({
         data: product,
         status: "success",
+        msg: "Producto registrado correctamente."
     });
 }
 
